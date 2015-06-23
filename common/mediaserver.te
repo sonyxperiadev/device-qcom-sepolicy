@@ -16,6 +16,7 @@ allow mediaserver camera_data_file:sock_file write;
 userdebug_or_eng(`
   allow mediaserver camera_data_file:dir rw_dir_perms;
   allow mediaserver camera_data_file:file create_file_perms;
+  allow mediaserver debugfs:file rw_file_perms;
 ')
 
 allow mediaserver sysfs_esoc:dir r_dir_perms;
@@ -45,8 +46,3 @@ allow mediaserver time_daemon:unix_stream_socket connectto;
 # Allow mediaserver to create socket files for audio arbitration
 allow mediaserver audio_data_file:sock_file { create setattr unlink };
 allow mediaserver audio_data_file:dir remove_name;
-
-#access to audio
-userdebug_or_eng('
-allow mediaserver debugfs:file rw_file_perms;
-')
