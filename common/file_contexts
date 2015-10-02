@@ -12,6 +12,7 @@
 /dev/msm_dsps                                   u:object_r:sensors_device:s0
 /dev/msm_thermal_query                          u:object_r:thermal_device:s0
 /dev/nfc-nci                                    u:object_r:nfc_device:s0
+/dev/nq-nci                                     u:object_r:nfc_device:s0
 /dev/qseecom                                    u:object_r:tee_device:s0
 /dev/seemplog                                   u:object_r:seemplog_device:s0
 /dev/radio0                                     u:object_r:fm_radio_device:s0
@@ -71,6 +72,8 @@
 /dev/block/bootdevice/by-name/misc              u:object_r:misc_partition:s0
 #/dev/block/mmcblk0p13                          u:object_r:bootselect_device:s0
 /dev/block/zram0                                u:object_r:swap_block_device:s0
+/dev/block/bootdevice/by-name/dip               u:object_r:dip_device:s0
+/dev/block/bootdevice/by-name/mdtp              u:object_r:mdtp_device:s0
 
 ###################################
 # Dev socket nodes
@@ -104,7 +107,6 @@
 /dev/socket/rild-debug3                         u:object_r:rild_debug_socket:s0
 /dev/socket/msm_irqbalance                      u:object_r:msm_irqbalance_socket:s0
 /dev/socket/seempdw                             u:object_r:seempdw_socket:s0
-/dev/socket/RIDL(/.*)?                          u:object_r:RIDL_socket:s0
 
 ###################################
 # System files
@@ -113,8 +115,7 @@
 /system/bin/PktRspTest                          u:object_r:diag_exec:s0
 /system/bin/audiod                              u:object_r:audiod_exec:s0
 /system/bin/charger_monitor                     u:object_r:charger_monitor_exec:s0
-/system/bin/hvdcp_auth                          u:object_r:charger_monitor_exec:s0
-/system/bin/hvdcp_opti                          u:object_r:charger_monitor_exec:s0
+/system/bin/hvdcp_opti                          u:object_r:hvdcp_exec:s0
 /system/bin/cnd                                 u:object_r:cnd_exec:s0
 /system/bin/diag_callback_client                u:object_r:diag_exec:s0
 /system/bin/diag_dci_sample                     u:object_r:diag_exec:s0
@@ -133,6 +134,7 @@
 /system/bin/mmi                                 u:object_r:mmi_exec:s0
 /system/bin/mpdecision                          u:object_r:mpdecision_exec:s0
 /system/vendor/bin/perfd                        u:object_r:perfd_exec:s0
+/system/bin/iop                                 u:object_r:dumpstate_exec:s0
 /system/bin/msm_irqbalance                      u:object_r:msm_irqbalanced_exec:s0
 /system/bin/imsdatadaemon                       u:object_r:ims_exec:s0
 /system/bin/imsqmidaemon                        u:object_r:ims_exec:s0
@@ -144,7 +146,7 @@
 /system/bin/sensors.qcom                        u:object_r:sensors_exec:s0
 /system/bin/sns.*                               u:object_r:sensors_test_exec:s0
 /system/bin/test_diag                           u:object_r:diag_exec:s0
-/system/bin/thermal-engine                      u:object_r:thermal-engine_exec:s0
+/system/vendor/bin/thermal-engine               u:object_r:thermal-engine_exec:s0
 /system/bin/vm_bms                              u:object_r:vm_bms_exec:s0
 /system/bin/mm-qcamera-daemon                   u:object_r:mm-qcamerad_exec:s0
 /system/bin/qfp-daemon                          u:object_r:qfp-daemon_exec:s0
@@ -188,6 +190,7 @@
 /system/vendor/bin/slim_daemon                  u:object_r:location_exec:s0
 /system/bin/energy-awareness                    u:object_r:energyawareness_exec:s0
 /system/vendor/bin/fidodaemon                   u:object_r:fidodaemon_exec:s0
+/system/vendor/bin/qseeproxydaemon              u:object_r:qseeproxy_exec:s0
 /system/bin/dts_configurator                    u:object_r:dtsconfigurator_exec:s0
 /system/bin/dts_eagle_service                   u:object_r:dtseagleservice_exec:s0
 /system/vendor/bin/qti                          u:object_r:qti_exec:s0
@@ -212,6 +215,8 @@
 /system/vendor/bin/RIDLClient.exe               u:object_r:RIDL_exec:s0
 /system/bin/tbaseLoader                         u:object_r:tbaseLoader_exec:s0
 /system/bin/mcStarter                           u:object_r:mcStarter_exec:s0
+/system/bin/fstman                              u:object_r:fstman_exec:s0
+/system/vendor/bin/mdtp_service                 u:object_r:mdtpdaemon_exec:s0
 
 ###################################
 # sysfs files
@@ -272,6 +277,8 @@
 /data/nfc(/.*)?                                                     u:object_r:nfc_data_file:s0
 /data/system/perfd(/.*)?                                            u:object_r:mpctl_data_file:s0
 /data/misc/perfd(/.*)?                                              u:object_r:mpctl_socket:s0
+/data/misc/iop(/.*)?                                                u:object_r:iop_data_file:s0
+/data/misc/iop/iop                                                  u:object_r:iop_socket:s0
 /data/misc/display(/.*)?                                            u:object_r:display_misc_file:s0
 /data/misc/ipa(/.*)?                                                u:object_r:ipacm_data_file:s0
 /data/dpm(/.*)?                                                     u:object_r:dpmd_data_file:s0
@@ -289,6 +296,9 @@
 /data/misc/radio(/.*)?                                              u:object_r:radio_data_file:s0
 /data/misc/port_bridge(/.*)?                                        u:object_r:port_bridge_data_file:s0
 /data/misc/fm(/.*)?                                                 u:object_r:fm_data_file:s0
+/data/misc/audio_pp(/.*)?                                           u:object_r:audio_pp_data_file:s0
+/data/ramdump(/.*)?                                                 u:object_r:ssr_ramdump_data_file:s0
+/data/misc/SelfHost/socket(/.*)?                                    u:object_r:RIDL_socket:s0
 
 ###################################
 # persist files
