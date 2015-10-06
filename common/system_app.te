@@ -105,3 +105,7 @@ binder_call(system_app, mdtpdaemon)
 
 # allow access to system_app for audio pp files
 r_dir_file(system_app, audio_pp_data_file);
+
+# allow access to system app for radio files
+allow system_app radio_data_file:dir rw_dir_perms;
+allow system_app radio_data_file:file create_file_perms;
