@@ -2,3 +2,4 @@
 allow init fuse:dir search;
 allow init self:capability sys_module;
 allow init fuse:dir mounton;
+allow init tmpfs:lnk_file create_file_perms;
