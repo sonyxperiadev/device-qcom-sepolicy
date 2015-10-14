@@ -23,3 +23,6 @@ unix_socket_connect(surfaceflinger, mpctl, perfd)
 # access to /data/misc/display for dumping input frames
 allow surfaceflinger display_misc_file:dir create_dir_perms;
 allow surfaceflinger display_misc_file:file create_file_perms;
+
+# access to /dev/kgsl-3d0
+allow surfaceflinger gpu_device:chr_file rw_file_perms;
