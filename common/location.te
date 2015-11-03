@@ -14,19 +14,38 @@ binder_use(location)
 binder_call(location, system_server)
 
 allow location location_data_file:dir rw_dir_perms;
-allow location location_data_file:fifo_file create_file_perms;
-allow location location_data_file:file create_file_perms;
-allow location location_exec:file execute_no_trans;
+allow location location_data_file:{ file fifo_file } create_file_perms;
+allow location location_data_file:sock_file write;
+allow location location_exec:file x_file_perms;
 allow location location_socket:sock_file create_file_perms;
-allow location self:capability { setuid setgid net_admin };
-allow location self:socket create_socket_perms;
-allow location sensors:unix_stream_socket connectto;
+allow location self:capability { setuid setgid net_admin net_raw };
+allow location self:{
+    socket
+    netlink_socket
+} create_socket_perms;
+
+unix_socket_connect(location, sensors, sensors)
 allow location sensors_device:chr_file r_file_perms;
-allow location sensors_socket:sock_file w_file_perms;
-allow location self:netlink_socket create_socket_perms;
-allow location system_server:unix_stream_socket { read write };
-allow location rfs_shared_hlos_file:dir r_dir_perms;
-allow location rfs_shared_hlos_file:file r_file_perms;
+allow location sensors_socket:sock_file rw_file_perms;
+allow location shell_exec:file rx_file_perms;
+
+allow location system_server:unix_stream_socket { read write connectto};
+
+# For interfacing with the device sensorservice
+allow location sensorservice_service:service_manager find;
+
+#wifi
+allow location wifi_data_file:dir r_dir_perms;
+unix_socket_send(wpa, location, location)
+allow location wpa:unix_dgram_socket sendto;
+allow location wpa_socket:dir rw_dir_perms;
+allow location wpa_socket:sock_file create_file_perms;
+
+r_dir_file(location, rfs_shared_hlos_file)
 
 dontaudit location domain:dir r_dir_perms;
 r_dir_file(location, netmgrd)
+allow location persist_file:dir r_dir_perms;
+
+#Allow access to netmgrd socket
+netmgr_socket(location);

@@ -1,5 +1,5 @@
 #Define the logging device type
-type diag_device, dev_type;
+type diag_device, dev_type, mlstrustedobject;
 type smem_log_device, dev_type;
 
 #Define the hsic device
@@ -22,7 +22,7 @@ type vm_bms_device, dev_type;
 type battery_data_device, dev_type;
 
 #Add qdsp_device type
-type qdsp_device, dev_type;
+type qdsp_device, dev_type, mlstrustedobject;
 #Define hvdcp/quickcharge device
 type hvdcp_device, dev_type;
 
@@ -39,6 +39,10 @@ type modem_efs_partition_device, dev_type;
 type ssd_device, dev_type;
 type rpmb_device, dev_type;
 type sg_device, dev_type;
+type dip_device, dev_type;
+type mdtp_device, dev_type;
+
+type sd_device, dev_type;
 
 #ESOC device
 type esoc_device, dev_type;
@@ -75,8 +79,6 @@ type ipa_dev, dev_type;
 
 type wcnss_device, dev_type;
 
-type mmc_block_device, dev_type;
-
 # Define QDSS devices
 type qdss_device, dev_type;
 
@@ -105,3 +107,12 @@ type usf_device, dev_type;
 
 #Define seemplog device
 type seemplog_device, dev_type;
+
+#Define qbt1000 device - ultrasonic fingperprint sensor
+type qbt1000_device, dev_type;
+
+#Define avtimer device
+type avtimer_device, dev_type;
+
+#define AT device
+type at_device, dev_type;

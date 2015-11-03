@@ -1,4 +1,4 @@
-type seempd, domain;
+type seempd, domain, mlstrustedsubject;
 type seempd_exec, exec_type, file_type;
 
 init_daemon_domain(seempd)
@@ -10,8 +10,20 @@ allow seempd seemp_file:dir create_dir_perms;
 allow seempd seemp_file:{ file fifo_file } create_file_perms;
 
 # allow seempd to load firmware images
-allow seempd firmware_file:dir r_dir_perms;
-allow seempd firmware_file:file r_file_perms;
+r_dir_file(seempd, firmware_file)
 
 #allow access to packages.list
 allow seempd system_data_file:file r_file_perms;
+
+#allow binder calls
+binder_use(seempd)
+binder_call(seempd, system_server)
+binder_call(seempd, appdomain)
+
+#allow read access to proc files for app_domain
+dontaudit seempd domain:dir r_dir_perms;
+r_dir_file(seempd, appdomain)
+
+#for seemp
+allow seempd seemp_service:service_manager { find add };
+allow seempd self:binder call;
