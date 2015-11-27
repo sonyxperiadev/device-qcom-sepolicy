@@ -15,3 +15,4 @@ allow ueventd {
 }:file w_file_perms;
 
 allow ueventd mba_debug_dev:blk_file r_file_perms;
+allow ueventd vfat:file { read open getattr };
