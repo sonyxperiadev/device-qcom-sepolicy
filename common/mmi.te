@@ -27,7 +27,9 @@ allow mmi mmi_data_file:dir rw_dir_perms;
 allow mmi mmi_data_file:file create_file_perms;
 
 #socket
-unix_socket_connect(mmi, property, init)
+# deprecated: unix_socket_connect(mmi, property, init)
+# Please use set_prop(mmi, <property name>) instead.
+# unix_socket_connect(mmi, property, init)
 allow mmi socket_device:dir w_dir_perms;
 
 #allow mmi set system prop,sensor need write persist
@@ -75,7 +77,6 @@ allow mmi block_device:blk_file getattr;
 allow mmi block_device:dir r_dir_perms;
 
 #camera
-allow mmi camera_device:chr_file rw_file_perms;
 allow mmi video_device:chr_file rw_file_perms;
 allow mmi camera_data_file:sock_file write;
 allow mmi camera_data_file:dir r_dir_perms;
