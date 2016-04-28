@@ -31,7 +31,10 @@ allow netmgrd netmgrd:netlink_xfrm_socket { create_socket_perms nlmsg_write nlms
 allow netmgrd netmgrd:netlink_socket { write read create bind };
 allow netmgrd netmgrd:socket { create ioctl };
 allow netmgrd netmgrd:netlink_route_socket { setopt getattr write nlmsg_write };
-unix_socket_connect(netmgrd, property, init)
+
+# deprecated: unix_socket_connect(netmgrd, property, init)
+# Please use set_prop(netmgrd, <property name>) instead.
+# unix_socket_connect(netmgrd, property, init)
 
 unix_socket_connect(netmgrd, cnd, cnd);
 

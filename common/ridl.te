@@ -74,7 +74,10 @@ allow RIDL cache_file:file create_file_perms;
 
 # reboot recovery
 allow RIDL powerctl_prop:property_service set;
-unix_socket_connect(RIDL, property, init)
+
+# deprecated: unix_socket_connect(RIDL, property, init) 
+# Please use set_prop(RIDL, <property name>) instead.
+# unix_socket_connect(RIDL, property, init)
 
 userdebug_or_eng(`
 	# Access to ANR/segfaults
