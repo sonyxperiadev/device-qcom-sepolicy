@@ -17,8 +17,6 @@ allow mediaserver camera_data_file:sock_file w_file_perms;
 userdebug_or_eng(`
   allow mediaserver camera_data_file:dir rw_dir_perms;
   allow mediaserver camera_data_file:file create_file_perms;
-  # Access to audio
-  allow mediaserver debugfs:file rw_file_perms;
 ')
 
 r_dir_file(mediaserver, sysfs_esoc)
