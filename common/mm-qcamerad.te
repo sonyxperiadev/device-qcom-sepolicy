@@ -28,8 +28,8 @@ binder_use(mm-qcamerad);
 allow mm-qcamerad self:process execmem;
 
 # Interact with other media devices
-allow mm-qcamerad camera_device:dir r_dir_perms;
-allow mm-qcamerad { gpu_device video_device camera_device sensors_device }:chr_file rw_file_perms;
+allow mm-qcamerad video_device:dir r_dir_perms;
+allow mm-qcamerad { gpu_device video_device sensors_device }:chr_file rw_file_perms;
 
 allow mm-qcamerad { surfaceflinger mediaserver }:fd use;
 
