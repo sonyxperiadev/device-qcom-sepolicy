@@ -90,6 +90,9 @@ allow system_server usf_data_file:file r_file_perms;
 allow system_server usf_data_file:lnk_file create_file_perms;
 allow system_server usf_data_file:fifo_file w_file_perms;
 
+# For init
+allow system_server init:unix_stream_socket { getopt };
+
 # For WFD
 allow system_server graphics_device:dir r_dir_perms;
 
